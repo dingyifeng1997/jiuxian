@@ -1,4 +1,4 @@
- //toggle插件
+ //自定义toggle插件
        $.fn.toggler = function( fn, fn2 ) {
            var args = arguments, guid = fn.guid || $.guid++, i = 0,
                    toggler = function (event) {
