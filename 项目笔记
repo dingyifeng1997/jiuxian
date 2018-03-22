@@ -1,0 +1,66 @@
+ //toggle插件
+       $.fn.toggler = function( fn, fn2 ) {
+           var args = arguments, guid = fn.guid || $.guid++, i = 0,
+                   toggler = function (event) {
+                       var lastToggle = ( $._data(this, "lastToggle" + fn.guid) || 0 ) % i;
+                       $._data(this, "lastToggle" + fn.guid, lastToggle + 1);
+                       event.preventDefault();
+                       return args[lastToggle].apply(this, arguments) || false;
+                   };
+           toggler.guid = guid;
+           while (i < args.length) {
+               args[i++].guid = guid;
+           }
+           return this.click(toggler);
+       };
+
+
+       $("#h1id").toggler(
+           function() {
+               this.innerHTML = 1;
+           },
+           function() {
+               this.innerHTML = 2;
+           }
+
+       );
+
+        /*
+        *   Jquery 1.11.3 框架
+        *   1:取消了1.8.3之间的一些常用事件,如下
+        *       .live();
+        *       .die();
+        *       .toggle();
+        *       .bind();
+        *       .unbind();
+        *   2:新增了如下事件
+        *       .on();
+        *       .off();
+        *   3:如何在1.9.0版本以后的版本使用1.8.3的常用事件,替代方法
+        *       .live();    $(document).on("click",".close",func);      事件委托
+        *       .die()      $(document).off("click",".close");          事件解除
+        *       .bind()     $(.close).on("click",func);                 事件绑定
+        *       .unbind()   $(.close).off("click");                     事件解除
+        *
+        *       .toggle()                                       双函数或者多函数语句
+        *                   i = 0;
+        *                   $("img").click(function(){
+        *                       if(i%2 == 0){
+        *                           this.src = "b.png";
+        *                       }else{
+        *                           this.src = "a.png";
+        *                       }
+        *                   });
+        * */
+
+
+使用非系统内部字体
+       <style>
+            @font-face{
+                font-family: myfont;
+                src:url("myfont.otf");
+            }
+            *{
+                font-family:myfont;
+            }
+       </style>
